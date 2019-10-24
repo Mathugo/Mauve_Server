@@ -1,4 +1,6 @@
 import server_class.*;
+
+import java.util.*;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -13,9 +15,11 @@ public class main
   {
 
     int port=32889;
-    String host = "127.0.0.1";
-    Server ser = new Server(port,host);
-    ser.AcceptClient();
+    Server ser = new Server(port);
+    ser.start();
+    
+  //  ser.recv(ser.getClients().get(0));
+  //  ser.printBuffer();
 
 
   }

@@ -9,15 +9,17 @@ import java.net.UnknownHostException;
 
 public class ClientRun extends Thread {
 
-  private Socket sock;
-  private BufferedReader in;
-  private PrintStream out;
-  private String buffer;
-  private String name;
+  private Socket sock=null;
+  private Server ser=null;
+  private BufferedReader in=null;
+  private PrintStream out=null;
+  private String buffer="";
+  private String name="";
 
-  public ClientRun(Socket psock)
+  public ClientRun(Socket psock,Server pser)
   {
     sock=psock;
+    ser=pser;
     name=sock.getInetAddress().getHostName();
     try
     {
@@ -32,27 +34,36 @@ public class ClientRun extends Thread {
   }
   public Socket getSock(){return sock;}
   public String getBuffer(){return buffer;}
+  public String getClName(){return name;}
 
   public void recv()
   {
-    try
+    while (buffer != "EXIT" || buffer != "ERROR")
     {
-    buffer=in.readLine();
+      try
+      {
+      buffer=in.readLine();
+      Factory fact = new Factory(this);
+      }
+      catch(Exception e)
+      {
+        // Client is off, we remove it from the dynamic list
+        System.out.println("[!] Error can't recv data from the client : " + sock.getInetAddress().getHostName());
+        e.printStackTrace();
+        ser.removeClient(this);
+        break;
+      }
     }
-    catch(Exception e)
-    {
-      System.out.println("[!] Error getting input stream of : "+name);
-    }
-  //  Factory fact = new Factory(this,sock,buffer);
   }
   public void send(String pbuffer)
   {
       out.println(pbuffer);
   }
+
   @Override
   public void run()
   {
-      recv();
+      this.recv();
   }
 
 }

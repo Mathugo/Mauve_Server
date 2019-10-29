@@ -10,16 +10,17 @@ import java.net.UnknownHostException;
 
 public class Factory{
 
-  private String buffer;
-  private Socket cl;
-  private Server ser;
+  private String buffer="";
+  private ClientRun cl=null;
+  private Socket clSock=null;
   private int BUFFER_FILE_SIZE=4096;
+  private String OriginPath="../src/musics/";
 
-  public Factory(Server pser, Socket pcl, String pbuffer)
+  public Factory(ClientRun pcl)
   {
-    buffer = pbuffer;
-    pser = ser;
     cl = pcl;
+    buffer = cl.getBuffer();
+    clSock=cl.getSock();
     this.compare();
   }
 
@@ -44,7 +45,7 @@ public class Factory{
 
   public void list_musics()
   {
-    File f = new File("musics");
+    File f = new File(OriginPath);
     FilenameFilter filter = new FilenameFilter()
     {
       @Override // Tell the compilator we extend accept() method
@@ -69,7 +70,7 @@ public class Factory{
     {
       System.out.println("Filename : "+ filename);
         FileInputStream fis = null;
-        File f = new File("musics/"+ filename);
+        File f = new File(OriginPath + filename);
         boolean test = f.exists();
 
       if (test)
@@ -79,21 +80,20 @@ public class Factory{
 
         long size = f.length();
         System.out.println("Size : "+size);
-        in = new FileInputStream("musics/"+filename);
+        in = new FileInputStream(OriginPath + filename);
         System.out.println("Opened");
 
-        ser.send(cl,"OK"); // We continue
+        cl.send("OK"); // We continue
 
         try
         {
-          out = cl.getOutputStream();
+          out = clSock.getOutputStream();
         }
         catch (Exception e)
         {
           System.out.println("Error creating out stream");
           e.printStackTrace();
         }
-
         byte[] buf = new byte[BUFFER_FILE_SIZE];
         int count=1;
 
@@ -102,11 +102,13 @@ public class Factory{
 	        	try
 	        	{
 		        	count = in.read(buf);
+              if (count == -1) {break;} // To not reach the ArrayOutOfBounds Exception
 		        	out.write(buf, 0, count);
+              System.out.println("[*] Uploading ..");
 	        	}
 	        	catch(Exception e)
 	        	{
-	        		System.out.println("Error during the transfer");
+	        		System.out.println("[!] Error during the transfer");
 	        		e.printStackTrace();
 	        		break;
 	        	}
@@ -115,6 +117,7 @@ public class Factory{
 	        {
 	        	out.close();
 		        in.close();
+            System.out.println("[*] Done uploading : "+filename);
 	        }
 	        catch(Exception e)
 	        {
@@ -124,7 +127,7 @@ public class Factory{
       }
       else
       {
-        ser.send(cl,"ERROR");
+        cl.send("ERROR");
       }
     }
     catch (Exception e)

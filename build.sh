@@ -12,7 +12,7 @@ if [ $? -eq 0 ]; then
       echo "[*] Done building"
       chmod +x ../bin/main.class
       echo "[!] Creating jar file .."
-      jar cvf ../$jarName ../bin/*.class ../bin/*/*.class
+  ##    jar cvf ../$jarName ../bin/*.class ../bin/*/*.class
         if [ $? -eq 0 ]; then
           echo "[*] Done"
         else

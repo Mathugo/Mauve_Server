@@ -12,12 +12,15 @@ You must install Java. The server is runnning on linux but you can run it on Win
 #### Ubuntu
 * ```sudo add-apt-repository ppa:webupd8team/java```
 * ```sudo apt-get update```
-* ```sudo apt-get install oracle-java10-installer -y```
-* ```sudo apt-get install oracle-java10-set-default -y```
+* ```sudo apt install oracle-java10-installer -y```
+* ```sudo apt install oracle-java10-set-default -y```
 * ```sudo apt install default-jre -y```
 * ```sudo apt install default-jdk -y```
+* ```sudo apt install mvn``` 
+* Or run [install.sh](https://github.com/Mathugo/Mauve_Server/install.sh)
 #### Linux 
 * [jre](https://www.java.com/fr/download/linux_manual.jsp)
+* Or run [install.sh](https://github.com/Mathugo/Mauve_Server/install.sh)
 
 ### Installation
 * ``` git clone https://github.com/Mathugo/Mauve_Server.git```

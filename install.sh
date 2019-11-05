@@ -7,4 +7,4 @@ sudo apt-get install oracle-java10-set-default -y
 sudo apt install default-jre -y
 sudo apt install default-jdk -y
 
-sudo apt-get install mvn 
+sudo apt install eyeD3

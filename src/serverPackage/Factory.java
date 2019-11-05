@@ -7,7 +7,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-
 public class Factory{
 
   private String buffer="";
@@ -28,7 +27,7 @@ public class Factory{
   {
     String[] arrayBuffer = buffer.split(",",5);
 
-    switch (arrayBuffer[0]) // <command> <arg1> <args2> ...
+    switch (arrayBuffer[0]) // <command>,<arg1>,<args2> ...
     {
         case "download":
           download(arrayBuffer[1]); // we send filename
@@ -38,6 +37,10 @@ public class Factory{
           break;
         case "list_musics":
           list_musics();
+          break;
+        case "getMetaData":
+          getMetaData(arrayBuffer[1]);
+          break;
         default:
             System.out.println(buffer);
     }
@@ -140,19 +143,87 @@ public class Factory{
 
   public void upload(String filename){}
 
+  public void getMetaData(String filename)
+  {
+    String cmd="eyeD3 --rfc822 ";
+    cmd+=OriginPath+filename;
+    String rtn = command(cmd);
+    String lines[] = rtn.split("\\n");
+    String Artist=null;
+    String Title=null;
+    String Album=null;
+    String Genre=null;
+    String Track=null;
+    String Year=null;
 
+    for (int i = 0; i< lines.length ; i++)
+    {
+      if (lines[i].contains("Artist:"))
+      {
+        Artist=lines[i];
+        String[] art=Artist.split("Artist: ");
+        Artist=art[1];
+      }
+      else if(lines[i].contains("Album:"))
+      {
+        Album=lines[i];
+        String[] t=Album.split("Album: ");
+        Album=t[1];
+      }
+      else if(lines[i].contains("Title:"))
+      {
+        Title=lines[i];
+        String[] t=Title.split("Title: ");
+        Title=t[1];
+      }
+      else if(lines[i].contains("Track:"))
+      {
+        Track=lines[i];
+        String[] tr=Track.split("Track: ");
+        Track=tr[1];
+      }
+      else if(lines[i].contains("Genre:"))
+      {
+        Genre=lines[i];
+        String[] g=Genre.split("Genre: ");
+        Genre=g[1];
+      }
+      else if(lines[i].contains("Year"))
+      {
+        Year=lines[i];
+        String[] y=Year.split("Year: ");
+        Year=y[1];
+      }
 
+    }
+  }
+  public String command(String cmd)
+  {
+    String s = null;
+    String rtn="";
 
+    try
+    {
+    Process p = Runtime.getRuntime().exec(cmd);
 
+    BufferedReader stdInput = new BufferedReader(new
+    InputStreamReader(p.getInputStream()));
+    BufferedReader stdError = new BufferedReader(new
+         InputStreamReader(p.getErrorStream()));
 
-
-
-
-
-
-
-
-
+    // read the output from the command
+    while ((s = stdInput.readLine()) != null)
+      {
+        rtn=rtn+s+"\n"; // For splitting \n
+        System.out.println(s);
+      }
+    }
+    catch(IOException e)
+    {
+      e.printStackTrace();
+    }
+    return rtn;
+  }
 
 
 

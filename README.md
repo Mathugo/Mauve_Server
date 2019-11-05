@@ -16,7 +16,6 @@ You must install Java. The server is runnning on linux but you can run it on Win
 * ```sudo apt install oracle-java10-set-default -y```
 * ```sudo apt install default-jre -y```
 * ```sudo apt install default-jdk -y```
-* ```sudo apt install mvn``` 
 * Or run [install.sh](install.sh)
 #### Linux 
 * [jre](https://www.java.com/fr/download/linux_manual.jsp)

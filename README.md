@@ -32,3 +32,5 @@ You must install Java. The server is runnning on linux but you can run it on Win
 * **Remi LEFAIVRE** - *Front End - JavaFX*
 * **Arthur KHADRAOUI-NICOD** - *Front End - JavaFX - Graphics*
 * **Hugo MATH** - *Back End - Server*
+
+![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/mauve_main.png)

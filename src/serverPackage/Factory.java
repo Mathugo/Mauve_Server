@@ -59,8 +59,12 @@ public class Factory{
     };
     String[] files = f.list(filter);
     String file_str="";
+    System.out.println("There are : "+String.valueOf(files.length)+" musics");
+    cl.send(String.valueOf(files.length)); // NUMBER OF FILES
+
     for (int i = 0; i < files.length; i++)
     {
+      cl.send(files[i]);
       file_str=file_str+files[i]+" ";
     }
     System.out.println(file_str);

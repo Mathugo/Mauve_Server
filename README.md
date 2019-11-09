@@ -1,4 +1,4 @@
-![alt text](https://github.com/Mathugo/Mauve/blob/master/mauve.png)
+![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/img/mauve.png)
 # Mauve
 Streaming music project using JavaFX 
 ## Getting Started

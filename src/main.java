@@ -11,16 +11,17 @@ import java.net.InetAddress;
 
 public class main
 {
+  // Server rooted normaly on port 32890
   public static void main(String[] args)
   {
+    int port=433; // default port
 
-    int port=32890;
+    if (args.length == 1)
+    {
+      port = Integer.parseInt(args[0]);
+    }
+
     Server ser = new Server(port);
-    ser.start();
-
-  //  ser.recv(ser.getClients().get(0));
-  //  ser.printBuffer();
-
 
   }
 

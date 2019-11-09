@@ -111,7 +111,7 @@ public class Factory{
 		        	count = in.read(buf);
               if (count == -1) {break;} // To not reach the ArrayOutOfBounds Exception
 		        	out.write(buf, 0, count);
-              System.out.println("[*] Uploading ..");
+             System.out.println("[*] Uploading ..");
 	        	}
 	        	catch(Exception e)
 	        	{
@@ -143,7 +143,6 @@ public class Factory{
       e.printStackTrace();
     }
   }
-
 
   public void upload(String filename){}
 

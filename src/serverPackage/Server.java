@@ -21,22 +21,19 @@ public class Server {
 
      public Server(int pport) // Bind TCP Connection to a port
      {
-       port=pport;
-       ServerISRunning=true;
-       System.out.println("[*] Starting server on :"+port);
-       try
-       {
-
-        server = new ServerSocket(port);
-        System.out.println("Socket done");
-        }
-      catch (UnknownHostException e)
+      port=pport;
+      ServerISRunning=true;
+      System.out.println("[*] Starting server on : "+port);
+      try
       {
-        e.printStackTrace();
+        server = new ServerSocket(port);
+        System.out.println("[*] Binding done");
+        this.start();
       }
       catch (IOException e)
-       {
+      {
         e.printStackTrace();
+        System.out.println("[!] The port is closed or your firewall may denied the program to run");
       }
      }
 
@@ -44,14 +41,14 @@ public class Server {
      {
        try
        {
-              System.out.println("[*] Waiting for clients ...");
-              Socket client = server.accept();
-              current_cl=client;
-              System.out.println("[*] Client connected");
+          System.out.println("[*] Waiting for clients ...");
+          Socket client = server.accept();
+          current_cl=client;
+          System.out.println("[*] Client connected");
         }
       catch (IOException e)
         {
-            e.printStackTrace();
+          e.printStackTrace();
         }
       }
 
@@ -85,26 +82,27 @@ public class Server {
 
       public void start()
       {
-            while (ServerISRunning) // While server on we accept client and launch thread
-            {
-                  this.AcceptClient();
-                  System.out.println("[!] Creating thread ..");
-                  ClientRun cl = new ClientRun(current_cl,this); // We create object ClienRun which extends class Thread
-                  Clients.add(cl);
-                  System.out.println("[*] Done");
-                  cl.start();
-                  System.out.println("[*] Client "+cl.getClName()+" started");
-            }
+        while (ServerISRunning) // While server on we accept client and launch thread
+        {
+          this.AcceptClient();
+          System.out.println("[!] Creating thread ..");
+          ClientRun cl = new ClientRun(current_cl,this); // We create object ClienRun which extends class Thread
+          Clients.add(cl);
+          System.out.println("[*] Done");
+          cl.start();
+          System.out.println("[*] Client "+cl.getClName()+" started");
+        }
           this.close_all();
       }
 
       public void close_all()
       {
-        try{
+        try
+        {
           for (int i = 0; i < Clients.size(); i++)
           {
-              Clients.get(i).getSock().close(); // We close connection
-              Clients.get(i).stop(); // We stop the thread
+            Clients.get(i).getSock().close(); // We close connection
+            Clients.get(i).stop(); // We stop the thread
           }
           server.close();
         }catch (Exception e)
@@ -114,7 +112,5 @@ public class Server {
         }
 
       }
-
-
 
 }

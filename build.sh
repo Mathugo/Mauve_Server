@@ -9,18 +9,22 @@ if [ $? -eq 0 ]; then
     echo "[*] Done building package"
     javac -d ../bin/ main.java
     if [ $? -eq 0 ]; then
-      echo "[*] Done building"
+      echo "[*] Done building main"
       chmod +x ../bin/main.class
       echo "[!] Creating jar file .."
-  ##    jar cvf ../$jarName ../bin/*.class ../bin/*/*.class
+        jar cvf ../export/$jarName ../bin/*.class ../bin/*/*.class
         if [ $? -eq 0 ]; then
-          echo "[*] Done"
+          echo "[*] Done building $jarName in export/"
+	  echo "[-*-] Done building overall project"
         else
           echo "[!] Error creating jar file"
-        fi
+          return 0
+	fi
     else
       echo "[!] Failed building main"
+      return 0
     fi
 else
   echo "[!] Failed building packages"
+  return 0
 fi

@@ -33,9 +33,9 @@ You must install Java. The server is runnning on linux but you can run it on Win
 * **Arthur KHADRAOUI-NICOD** - *Front End - JavaFX - Graphics*
 * **Hugo MATH** - *Back End - Server*
 
-![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/mauve_main.png)
+![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/img/mauve_main.png)
 
 # UML
 
-![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/Main.png)
+![alt text](https://github.com/Mathugo/Mauve_Server/blob/master/img/Main.png)
 

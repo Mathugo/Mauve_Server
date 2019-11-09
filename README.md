@@ -26,7 +26,7 @@ You must install Java. The server is runnning on linux but you can run it on Win
 * ```chmod +x build.sh```
 * ```./build.sh```
 ### Running
-* ```./exe <args>```
+* ```./exe.sh <port>```
 
 ## Authors
 * **Remi LEFAIVRE** - *Front End - JavaFX*
